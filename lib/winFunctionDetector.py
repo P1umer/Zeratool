@@ -31,7 +31,10 @@ def getWinFunctions(binary_name):
     strings = [string for string in json.loads(r2.cmd('izj'))]
     for string in strings:
         value = string['string']
-        decoded_value = base64.b64decode(value)
+        try:
+            decoded_value = base64.b64decode(value)
+        except:
+            decoded_value = value
         if any([x in decoded_value for x in known_flag_names]):
             address = string['vaddr']
 
